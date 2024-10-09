@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'store/register.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <header>
+    <img class="cart-logo" src="{% static 'store/cart.svg' %}" alt="image">
+    <p>Anabelle</p>
+  </header>
+    <div class="form-div-wrapper">
+        <form action="{% url 'register' %}" method="post">
+          {% csrf_token %}
+            <p class="personal-info">Personal Information</p>
+
+            <div class="nom">
+                <div class="first-name">
+                    <label for="firstname">First Name*</label>
+                    <input 
+                      id="{{ form.firstname.id_for_label }}" 
+                      name="firstname" 
+                      type="text" 
+                      maxlength="150"
+                      value="{{ form.firstname.value|default:''}}"
+                      {% if form.firstname.errors %}
+                        style="border: 1px solid #ff0000"
+                      {% endif %}
+                    >
+                    {% for errors in form.firstname.errors %}
+                    <p class="error-message">{{ errors }}</p>
+                    {% endfor %}
+                </div>
+                <div class="last-name">
+                  <label for="lastname">Last Name*</label>
+                  <input 
+                    id="{{ form.lastname.id_for_label }}" 
+                    name="lastname" 
+                    type="text" 
+                    maxlength="150"
+                    value="{{ form.lastname.value|default:''}}"
+                    {% if form.lastname.errors %}
+                      style="border: 1px solid #ff0000"
+                    {% endif %}
+                  >
+                  {% for errors in form.lastname.errors %}
+                  <p class="error-message">{{ errors }}</p>
+                  {% endfor %}
+                </div>
+            </div>
+
+            <p class="sign-info">Sign-in Information</p>
+            <label for="{{ form.email.id_for_label }}">Email Address*</label>
+            <input 
+              id="{{ form.email.id_for_label }}"
+              type="text" 
+              name="email"
+              value="{{ form.email.value|default:'' }}"
+              {% if form.email.errors %}
+              style="border: 1px solid #ff0000"
+              {% endif %}
+              >
+            {% for error in form.email.errors %}
+              <p class="error-message">{{ error }}</p>
+            {% endfor %}
+
+            <label for="Password">Password*</label>
+            <input type="password" name="password1">
+
+            <label for="Password2">Confirm Password*</label>
+            <input 
+              id="{{ form.password2.id_for_label }}" 
+              name="password2" 
+              type="password"
+              value="{{ form.password2.value|default:''}}"
+              {% if form.password2.errors %}
+                style="border: 1px solid #ff0000"
+              {% endif %}>
+
+            {% for error in form.password2.errors %}
+              <p class="error-message">{{ error }}</p>
+            {% endfor %}
+            <!--  -->
+            <div class="input-container">
+                <input type="submit" value="Create an Account">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
