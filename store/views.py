@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from .models import Product
 from django.contrib.auth import login
 from .forms import RegisterForm
 
@@ -17,12 +17,16 @@ def register(request):
             return redirect(reverse('index'))
 
     else:
+        if request.user.is_authenticated:
+            print(request.user.email)
+            return redirect(reverse('index'))
+
         form = RegisterForm()
     
     return render(request,'store/register.html',{'form':form})  
 
         
 
-@login_required
 def index(request):
-    return HttpResponse(f"{request.user}: {request.user.is_authenticated}")
+    shoes = Product.objects.filter(category__categoryname = "Shoes")
+    return render(request,'store/home.html',{"products":shoes})

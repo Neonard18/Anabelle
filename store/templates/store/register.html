@@ -72,7 +72,17 @@
             {% endfor %}
 
             <label for="Password">Password*</label>
-            <input type="password" name="password1">
+            <input 
+              type="password" 
+              name="password1"
+              value="{{ form.password1.value|default:''}}"
+              {% if form.password1.errors %}
+              style="border: 1px solid #ff0000"
+              {% endif %}
+              >
+            {% for error in form.password1.errors %}
+            <p class="error-message">{{ error }}</p>
+            {% endfor %}
 
             <label for="Password2">Confirm Password*</label>
             <input 
