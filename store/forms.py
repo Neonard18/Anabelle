@@ -1,7 +1,18 @@
-from django.forms.models import ModelForm
 from django.core.exceptions import ValidationError
 from django import forms
 from .models import User
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(required=True,
+                error_messages={
+                    "required" : "Email is required.",
+                    "invalid" : "Invalid email address."})
+    
+    password = forms.CharField(required=True,
+                error_messages={
+                    "required" : "Password is required."})
+
+    
 
 class RegisterForm(forms.ModelForm):
     password1 = forms.CharField(max_length = 150,

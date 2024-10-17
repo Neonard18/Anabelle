@@ -1,4 +1,4 @@
-from typing import Iterable
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
@@ -28,39 +28,43 @@ class MyUserManager(BaseUserManager):
             **kwargs
             )
         
-        user.is_admin = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     firstname = models.CharField(max_length = 150)
     lastname = models.CharField(max_length = 150)
     phone = models.IntegerField(blank=True,null=True)
-    
+
 
     is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ['firstname','lastname']
+
+    def has_perm(self, perm, obj=None) -> bool:
+        if self.is_superuser: 
+            return True
+        return super().has_perm(perm, obj)
+    
+    def has_module_perms(self, app_label: str) -> bool:
+        if self.is_superuser:
+            return True
+        return super().has_module_perms
 
     objects = MyUserManager()
 
     def __str__(self):
         return self.email
     
-    def has_perm(self, perm, obj=None):
-        return True
-    
-    def has_module_perms(self, app_label):
-        return True
-    
     @property
     def is_staff(self):
-        return self.is_admin
+        return self.is_superuser
     
 
 class Category(models.Model):
@@ -86,6 +90,8 @@ class Product(models.Model):
     price = models.FloatField()
     productimage = models.ImageField(upload_to=upload_path, height_field=None, width_field=None, max_length=100)
     description = models.CharField(max_length = 150)
+    is_featured = models.BooleanField(default=False)
+    
 
     class Meta:
         verbose_name = "Product"
