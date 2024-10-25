@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Home</title>
+          <script src="https://kit.fontawesome.com/c1d73264ae.js" crossorigin="anonymous"></script>
+          <link rel="stylesheet" href="{% static 'store/home.css' %}">
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+      </head>
+<body>
+    <header>
+        <div class="header-logo-container">
+            <img class="cart-logo" src="{% static 'store/cart.svg' %}" alt="image">
+            <p class="logo-text">Anabelle</p>            
+        </div>
+
+
+        <div>
+        <a href="#">Brands</a>
+        <a href="{% url 'logout' %}">Log Out</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="hero-section">
+            <div class="hero-wrapper">
+                <div class="hero-heading">
+                    <p><span>Step into </span></p>
+                    <p><span>Style with Top Brands</span></p>
+                    <p><span>in Anabelle!</span> </p>
+                </div>
+            </div>
+           
+        </div>
+        <div class="mid-section">
+            <div class="parent">
+                <div class="description">
+                    <p >
+                        Discover a wide selection of premium shoes from the most popular brands, all in one place. Whether you’re looking for the latest trends, comfort, or performance, we’ve got something for everyone.  </p>
+                </div>
+                <div class="sample">
+                    <div class="collection_list first-item">
+                    <p class="first-item-text">Adidas</p>
+                    </div>
+                    <div class="collection_list second-item">
+                    <p class="second-item-text">Vans</p>
+                    </div>
+                    <div class="collection_list third-item">
+                    <p class="last-item-text">Nike</p>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="third-section">
+            <div class="ts-description">
+                <div>
+                    <p style="font-size: 35px; font-weight: 700; letter-spacing: 3px;">Style Better, Drip More</p>
+                    <p style="font-size: 24px;">Get ready to be exquiste and elegant.</p>
+                    <a href="http://">Shop Now</a>
+                </div>
+            </div>
+            <div class="third-sect-container">
+                <div class="third-sect x-image"></div>
+                <div class="third-sect xx-image"></div>
+            </div>
+        </div>
+        <div class="featured-products">
+            <h2>Featured Products</h2>
+            <div class="fp-grid">
+                <button class="fp-left-button" onclick="scrollToLeft()" type="button"><i class="fa-solid fa-angle-left"></i></button>
+                {% if fproducts %}
+                {% for product in fproducts %}
+                    <div class="fp-grid-child grid-child{{ forloop.counter }}">
+                        <img class="fp-child-img grid-child-image-{{ forloop.counter }}" src="{{ product.productimage.url }}" alt="">
+                        <div class="product-info">
+                            <input class="fp-quickbtn" type="submit" value="Quick View">
+                           <p>{{ product.productname }}</p>
+                           <p>${{ product.price }}</p>
+                        </div>
+                    </div>
+                    <button class="fp-right-button" onclick="scrollToRight()" type="button"><i class="fa-solid fa-angle-right"></i></button>
+                {% endfor %}
+                {% else %}
+                <p>No featured-products</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="banner" >
+            <div class="banner-image left-banner"></div>
+            <div class="overflow">
+                <p>Stunning Shoe Collection </p>
+                <span>
+Step into comfort and style with our exclusive Shoe Collection,designed to every step.
+    Whether you're dressing up for a special occasion or keeping it casual,
+            our shoes provide the perfect blend of fashion and comfort, 
+                making them your go-to choice for any outing.</span>
+            </div>
+            <div class="banner-image right-banner"></div>
+        </div>
+    </main>
+    
+    <script>
+        function scrollToLeft() {
+            const element = document.getElementsByClassName("fp-grid")[0];
+            // Scroll 300 pixels left
+            element.scrollBy({
+                top: 0,
+                left: -290,
+                behavior: 'smooth'  // Adds smooth scrolling effect
+            });
+        }
+
+        function scrollToRight() {
+            const element = document.getElementsByClassName("fp-grid")[0];
+            // Scroll 300 pixels right
+            element.scrollBy({
+                top: 0,
+                left: 290,
+                behavior: 'smooth'  // Adds smooth scrolling effect
+            });
+        }
+    </script>
+</body>
+</html>

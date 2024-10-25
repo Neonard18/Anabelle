@@ -57,5 +57,5 @@ def logging_out(request):
         
 @login_required
 def index(request):
-    shoes = Product.objects.filter(category__categoryname = "Shoes")
-    return render(request,'store/home.html',{"products":shoes})
+    ftd_product =  Product.objects.filter(is_featured = True)
+    return render(request,'store/home.html',{"fproducts":ftd_product})

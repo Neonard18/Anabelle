@@ -89,7 +89,7 @@ class Product(models.Model):
     productname = models.CharField(max_length = 150, blank=False, unique=True)
     price = models.FloatField()
     productimage = models.ImageField(upload_to=upload_path, height_field=None, width_field=None, max_length=100)
-    description = models.CharField(max_length = 150)
+    description = models.TextField(max_length = 400)
     is_featured = models.BooleanField(default=False)
     
 
