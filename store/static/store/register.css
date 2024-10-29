@@ -56,7 +56,8 @@ header > p {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+    height: calc(100svh - 80px);
 }
 
 
@@ -132,6 +133,7 @@ form input {
     border: 1px solid #e3e3e3;
     background-color: #f7f7f7;
     box-shadow: inset 0 0 1px rgba(198, 198, 198, 0.5);
+    padding-left: 8px;
 }
 .personal-info, .sign-info {
     font-weight: 600;
@@ -167,6 +169,14 @@ form input {
     margin-top: 65px;
 }
 
+.password-container {
+    position: relative;
+}
+
+.password-container input{
+    width: 100%;
+}
+
 input[type="submit"] {
     font-weight: 600;
     padding: 5px 90px;
@@ -177,8 +187,7 @@ input[type="submit"] {
     border: 2px solid white;
 }
 
-/* From Uiverse.io by catraco */ 
-/*------ Settings ------*/
+/* PASSWORD'S EYE STYLING */
 .container {
     --color: #a5a5b0;
     --size: 30px;
@@ -190,6 +199,11 @@ input[type="submit"] {
     font-size: var(--size);
     user-select: none;
     fill: var(--color);
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    right: 3.6%;
   }
   
   .container .eye {
@@ -232,3 +246,5 @@ input[type="submit"] {
       transform: scale(1.2);
     }
   }
+
+/* END OF PASSWORD'S EYE */

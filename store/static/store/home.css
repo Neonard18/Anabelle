@@ -90,7 +90,7 @@ header{
 
 .hero-heading span {
     padding: 5px;
-    text-shadow: 2px 2px #fff;
+    text-shadow: 1px 1px #fff;
     display: block;
     font-size: 65px;
     font-style: oblique;
@@ -117,7 +117,7 @@ header{
 }
 
 .mid-section {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.69);
     height: 580px;
 }
 
@@ -435,8 +435,9 @@ header{
 }
 
 .overflow {
-    width: 650px;
-    height: 350px;
+    text-align: center;
+    width: 700px;
+    height: 300px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -446,19 +447,74 @@ header{
     z-index: 100;
     background-color: rgba(255, 255, 255, .15);
     padding: 25px;
-    backdrop-filter: blur(1.4px);
+    backdrop-filter: blur(1.75px);
     border: 0.2px solid gray;
+    text-shadow: 1px 1px white;
 }
 
 .overflow p {
-    font-size: 18px;
-    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 8px;
+    letter-spacing: 0.45px;
 }
 
 .overflow span {
-    background-color: gray;
-    width: 80%;
+    text-shadow: 1px 1px rgba(255, 255, 255, 0.719);
+    line-height: 10px;
+    font-size: 18px;
+    font-weight: 400;
+    width: 100%;
     position: relative;
-    word-wrap: break-word;
+}
 
+footer {
+    height: 350px;
+    background-color: rgba(0, 0, 0, 0.854); 
+}
+
+.footer-wrapper {
+    height: 100%;
+    width: 92%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex: 1 0 auto;
+    align-items: center;
+    /* border: 4px solid white; */
+}
+
+.f-item {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+    width: 22.5%;
+    height: 44%;
+    /* padding-left: px; */
+    /* width: 100%; */
+    text-wrap: wrap;
+}
+.f-item > p {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+}
+
+.f-item > div{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.footer-nav-title {
+    margin-bottom: 12px;
+}
+
+.fa-brands {
+    font-size: 22px;
+    margin-right: 8px;
 }
