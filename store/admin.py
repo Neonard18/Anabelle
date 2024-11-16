@@ -4,11 +4,13 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
-from store.models import User, Category, Product
+from store.models import User, Category, Product, Cart
 
 admin.site.register(Category)
 admin.site.register(Product)
 admin.site.register(User)
+admin.site.register(Cart)
+
 
 # class UserCreationForm(forms.ModelForm):
 #     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)

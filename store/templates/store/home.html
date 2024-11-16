@@ -4,6 +4,7 @@
         {% load static %}
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <link rel="icon" type="image/x-icon" href="{% static 'store/ico.svg' %}">
           <title>Home</title>
           <script src="https://kit.fontawesome.com/c1d73264ae.js" crossorigin="anonymous"></script>
           <link rel="stylesheet" href="{% static 'store/home.css' %}">
@@ -13,17 +14,44 @@
       </head>
 <body>
     <header>
-        <div class="header-logo-container">
-            <img class="cart-logo" src="{% static 'store/cart.svg' %}" alt="image">
-            <p class="logo-text">Anabelle</p>            
+        <div class="header-container">
+            <div class="h-search-cart">
+                <div class="search-container"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div onclick="viewCart()"><i class="fa-solid fa-bag-shopping"></i></i></div>
+            </div>
+            <div class="h-logo-nav">
+                <div>
+                    <p class="logo-text">Anabelle</p>    
+                    <img class="logo-img" src="{% static 'store/ico.svg' %}" alt="..">
+                </div>
+    
+                    <!-- nav links -->
+                    <div>
+                        <a href="#">Brands</a>
+                        <a href="{% url 'logout' %}">Log Out</a>
+                    </div>      
+            </div>
         </div>
 
-
-        <div>
-        <a href="#">Brands</a>
-        <a href="{% url 'logout' %}">Log Out</a>
-        </div>
     </header>
+
+    <div class="overlay"></div>
+    <nav class="sidebar" id="sidebar">
+        <div class="cart-heading">
+            <span>Your cart</span>
+            <div id="xmark" onclick="closeCartSideBar()"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+        <div class="cart-heading desc">
+            <span>PRODUCT</span>
+            <span>TOTAL</span>
+        </div>
+
+        <hr class="cart-hr">
+        <div id="cart-tray">
+        </div>
+
+        <hr>
+    </nav>
 
     <main class="main-content">
         <div class="hero-section">
@@ -64,6 +92,7 @@
                     <a href="http://">Shop Now</a>
                 </div>
             </div>
+            <img class="logo-img" src="{% static 'store/ico.svg' %}" alt="..">
             <div class="third-sect-container">
                 <div class="third-sect x-image"></div>
                 <div class="third-sect xx-image"></div>
@@ -72,21 +101,23 @@
         <div class="featured-products">
             <h2>Featured Products</h2>
             <div class="fp-grid">
-                <button class="fp-left-button" onclick="scrollToLeft()" type="button"><i class="fa-solid fa-angle-left"></i></button>
                 {% if fproducts %}
+                    <button class="fp-left-button" onclick="scrollToLeft()" type="button"><i class="fa-solid fa-angle-left"></i></button>
                 {% for product in fproducts %}
                     <div class="fp-grid-child grid-child{{ forloop.counter }}">
                         <img class="fp-child-img grid-child-image-{{ forloop.counter }}" src="{{ product.productimage.url }}" alt="">
                         <div class="product-info">
-                            <input class="fp-quickbtn" type="submit" value="Quick View">
+                                <input class="fp-quickbtn" id="quickview" type="submit" value="Quick View"  onclick="addToCart('{{ product.id|escapejs }}')">
                            <p>{{ product.productname }}</p>
                            <p>${{ product.price }}</p>
                         </div>
                     </div>
-                    <button class="fp-right-button" onclick="scrollToRight()" type="button"><i class="fa-solid fa-angle-right"></i></button>
                 {% endfor %}
+                    <button class="fp-right-button" onclick="scrollToRight()" type="button"><i class="fa-solid fa-angle-right"></i></button>
                 {% else %}
-                <p>No featured-products</p>
+                <div class="null-featured">
+                    <p>No Featured Products Yet</p>
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -155,6 +186,7 @@
         </div>
     </footer>
     
+    <script src="{% static 'store/cartLogic.js' %}"></script>
     <script>
         function scrollToLeft() {
             const element = document.getElementsByClassName("fp-grid")[0];

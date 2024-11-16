@@ -1,11 +1,13 @@
 from django.forms import ValidationError
 from django.urls import reverse
+from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Product
+from .models import Product, Category, Cart, CartItem
 from django.contrib.auth import login, logout
 from .forms import RegisterForm, LoginForm
+from django.db.models import F
 
 # Create your views here.
 def register(request):
@@ -55,7 +57,72 @@ def logging_out(request):
     return redirect(reverse('signin'))
 
         
-@login_required
+@login_required # to be removed later
 def index(request):
     ftd_product =  Product.objects.filter(is_featured = True)
     return render(request,'store/home.html',{"fproducts":ftd_product})
+
+
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    # check is the auth user have a cart already, 
+    # If the user doesn't have a cart yet, one should be created.
+    user = request.user
+    if not hasattr(user, "cart"):
+        cart = Cart.objects.create(user=user)
+        user.cart = cart
+    else: 
+        cart = user.cart
+
+    try:
+        cartitem = CartItem.objects.get(cart=cart,product=product)
+        cartitem.quantity += 1
+        cartitem.save()
+        xcart = 'true'
+    except CartItem.DoesNotExist:
+        xcart = 'false'
+        cartitem = CartItem.objects.create(cart=cart,product=product)
+
+    cart_total = sum(item.total_price() for item in cart.items.all())  
+    quantity_total = sum(item.quantity for item in cart.items.all())
+
+    return JsonResponse({
+        "xcart": xcart,
+        "cart_total" : cart_total,
+         "cart_tquantity" : quantity_total,
+         "product_name" : product.productname,
+         "product_price" : product.price,
+         "product_image" : product.productimage.url,
+         "cartitem_quantity": cartitem.quantity,
+    })
+
+
+def view_cart(request):
+    user = request.user    
+
+    if not hasattr(user, "cart"):
+        cart = Cart.objects.create(user=user)
+        user.cart=cart
+    else:
+        cart = user.cart
+
+    cart_items = cart.items.all()
+    items = [
+        {
+            "id": item.id,
+            "product_id": item.product.id,
+            "name": item.product.productname,
+            "size" : item.product.size,
+            "price" : item.product.price,
+            "quantity" : item.quantity,
+            "image" : item.product.productimage.url,
+        }
+        for item in cart_items
+    ]
+
+    return JsonResponse({
+        "cart_total" : sum(item.total_price() for item in cart_items),
+        "items" : items,
+    })
+    

@@ -101,10 +101,21 @@ class Product(models.Model):
     def __str__(self):
         return self.productname
     
-
-
-
+class Cart(models.Model):
+    created_at = models.DateField(auto_now_add=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="cart")
     
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="items")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def total_price(self):
+        return self.product.price * self.quantity
+
+    def __str__(self) -> str:
+        return f'item: {self.product.productname} {self.id}'
     
     
     

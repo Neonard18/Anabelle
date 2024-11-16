@@ -13,9 +13,14 @@
 </head>
 <body>
   <header>
-    <img class="cart-logo" src="{% static 'store/cart.svg' %}" alt="image">
-    <p>Anabelle</p>
-  </header>
+    <div class="header-container">
+        <div>
+            <p class="logo-text">Anabelle</p>    
+            <img class="logo-img" src="{% static 'store/ico.svg' %}" alt="..">
+        </div>
+    </div>
+
+</header>
     <div class="form-div-wrapper">
         <form action="{% url 'signin' %}" method="POST">
           {% csrf_token %}
@@ -64,7 +69,7 @@
               </label>
             </div>
             <div class="input-container">
-                <input type="submit" value="Sign-in">
+                <input type="submit" value="Sign In">
             </div>
         </form>
     </div>
