@@ -97,6 +97,18 @@ def add_to_cart(request, product_id):
          "cartitem_quantity": cartitem.quantity,
     })
 
+def delete_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    user = request.user
+    
+    cart = user.cart
+    try:
+        cartItem = CartItem.objects.get(cart=cart,product=product)
+        cartItem.delete()
+    except CartItem.DoesNotExist:
+        pass
+    return JsonResponse({"message": "Item deleted from cart"})
+    
 
 def view_cart(request):
     user = request.user    
