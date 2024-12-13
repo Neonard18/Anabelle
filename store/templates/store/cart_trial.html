@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CartTrial</title>
+</head>
+<body>
+    {% if carts %}
+    {% for cart in carts %}
+        <P>{{ cart.product }}</P>
+    {% endfor%}
+    <p>{{ cart.cartitem }} </p>
+    {% endif %}
+</body>
+</html>

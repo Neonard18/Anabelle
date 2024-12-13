@@ -17,8 +17,19 @@
     <header>
         <div class="header-container">
             <div class="h-search-cart">
-                <div class="search-container"><i class="fa-solid fa-magnifying-glass"></i></div>
-                <div onclick="viewCart()"><i class="fa-solid fa-bag-shopping"></i></i></div>
+                <div class="search-container">
+                    <i class="fa-solid fa-magnifying-glass" onclick="showSearch()"></i>
+
+                    <div class="searching">
+                        <input class="search-input" type="text" onchange="search()" placeholder="Search">
+                        <div class="input-xmark" onclick="closeSearch()">
+                            <i class="fa-sharp-duotone fa-solid fa-xmark"></i>
+                        </div>
+                        <div class="search-result">
+                        </div>
+                    </div>
+                </div>
+                <div onclick="viewCart()"><i class="fa-solid fa-bag-shopping"></i></div>
             </div>
             <div class="h-logo-nav">
                 <div>
@@ -28,12 +39,14 @@
     
                     <!-- nav links -->
                     <div class="nav-links">
-                        <a href="#">Brands</a>
+                        <a href="{% url 'index' %}">Home</a>
+                        <a href="#">Products</a>
+                        <a href="#">Contact Us</a>
                         <a href="{% url 'logout' %}">Log Out</a>
                     </div>      
  
                 <label class="burger" for="burger">
-                    <input type="checkbox" id="burger">
+                    <input type="checkbox" id="burger" onchange="openSlider()">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -59,6 +72,31 @@
         </div>
 
         <hr>
+    </nav>
+
+    <nav class="slider">
+        <div class="area">
+            <div class="area-child area-1">
+                <i class="fa-solid fa-house"></i>
+                <a href="{% url 'index' %}">Home</a>
+            </div>
+            <div class="area-child area-2">
+                <i class="fa-solid fa-tag"></i>
+                Products
+            </div>
+            <div class="area-child area-3" onclick="closeSlider(); viewCart();">
+                <i class="fa-solid fa-bag-shopping"></i>
+                Cart
+            </div>
+            <div class="area-child area-5">
+                <i class="fa-solid fa-phone"></i>
+                Contact us
+            </div>
+            <div class="area-child area-6">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <a href="{% url 'logout' %}">Log Out</a>
+            </div>
+        </div>
     </nav>
 
     <main class="main-content">
@@ -222,6 +260,8 @@
     </footer>
     
     <script src="{% static 'store/cartLogic.js' %}"></script>
+    <script src="{% static 'store/search.js' %}"></script>
+    <script src="{% static 'store/slider.js' %}"></script>
     <script src="{% static 'store/scroll.js' %}"></script>
     <script src="{% static 'store/toggle.js' %}"></script>
 </body>

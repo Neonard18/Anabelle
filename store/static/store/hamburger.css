@@ -1,0 +1,117 @@
+/* Base styles for the hamburger */
+.burger {
+    position: relative;
+    width: 40px; /* Default width */
+    height: 30px; /* Default height */
+    background: transparent;
+    cursor: pointer;
+    display: none;
+  }
+  
+  .burger input {
+    display: none;
+  }
+  
+  .burger span {
+    display: block;
+    position: absolute;
+    height: 4px; /* Default line thickness */
+    width: 100%; /* Default width */
+    background: rgb(200,200,200);
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: 0.25s ease-in-out;
+  }
+  
+  .burger span:nth-of-type(1) {
+    top: 0px; /* Top line starts at the top */
+    transform-origin: center center;
+  }
+  
+  .burger span:nth-of-type(2) {
+    top: 50%; /* Middle line is centered */
+    transform: translateY(-50%);
+    transform-origin: center center;
+  }
+  
+  .burger span:nth-of-type(3) {
+    bottom: 0px; /* Bottom line starts at the bottom */
+    transform-origin: center center;
+  }
+  
+  .burger input:checked ~ span:nth-of-type(1) {
+    transform: rotate(45deg);
+    top: 50%; /* Move to center */
+    transform-origin: center center;
+  }
+  
+  .burger input:checked ~ span:nth-of-type(2) {
+    width: 0%; /* Middle line disappears */
+    opacity: 0;
+  }
+  
+  .burger input:checked ~ span:nth-of-type(3) {
+    transform: rotate(-45deg);
+    top: 50%; /* Move to center */
+    transform-origin: center center;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 600px) {
+    .burger {
+      display: block;
+      width: 30px; /* Smaller width */
+      height: 20px; /* Smaller height */
+    }
+  
+    .burger span {
+      height: 3px; /* Thinner lines */
+    }
+  
+    .burger input:checked ~ span:nth-of-type(1),
+    .burger input:checked ~ span:nth-of-type(3) {
+      top: 50%; /* Ensure lines meet at the center */
+    }
+  }
+  
+
+
+.checkbox-container {
+  /* position: relative; */
+  display: inline-block;
+} 
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  /* background-color: gray; */
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.toggle-label::before {
+  content: '+';
+}
+
+input[type="checkbox"]:checked + .toggle-label::before {
+  content: '-';
+}
+
+input[type="checkbox"]:checked + .toggle-label {
+  /* background-color: #dc3545; */
+  transform: rotate(180deg);
+}

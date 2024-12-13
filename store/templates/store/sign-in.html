@@ -21,7 +21,7 @@
     </div>
 
 </header>
-    <div class="form-div-wrapper">
+    <div class="form-div-wrapper" >
         <form action="{% url 'signin' %}" method="POST">
           {% csrf_token %}
 
@@ -70,6 +70,9 @@
             </div>
             <div class="input-container">
                 <input type="submit" value="Sign In">
+            </div>
+            <div class="in-up">
+              Don't have an account? <a href="{% url 'register' %}">Sign Up</a>
             </div>
         </form>
     </div>

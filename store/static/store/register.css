@@ -184,9 +184,35 @@ form input {
 
 .input-container input {
     background-color: rgba(0, 0, 0, 0.854);
+    cursor: pointer;
     width: 100%;
 }
 
+.in-up{
+    text-align: center;
+    margin-top: 30px;
+    width: 100%;
+    font-size: 20px;
+}
+
+.in-up a{
+    text-decoration: none;
+    color: rgb(27, 26, 26);
+    font-weight: 500;
+    font-size: 20px;
+
+}
+
+@media (max-width: 500px){
+    .in-up {
+        left: 0;
+        right: 0;
+        position: absolute;
+        bottom: 35px;
+        font-size: 18px;
+        font-weight: 200;
+    }
+}
 
 .password-container, 
 .password-container2 {

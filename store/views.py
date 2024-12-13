@@ -137,4 +137,29 @@ def view_cart(request):
         "cart_total" : sum(item.total_price() for item in cart_items),
         "items" : items,
     })
-    
+
+def searchItem(request, phrase):
+    if request.method == 'POST':
+        try:
+            # Fetch products matching the search phrase
+            productx = Product.objects.filter(productname__icontains=phrase).only('id', 'productname', 'productimage')
+            print(phrase)
+            # Prepare product data
+            products = [
+                {
+                    "id": product.id,
+                    "name": product.productname,
+                    "image": product.productimage.url if product.productimage else None,
+                }
+                for product in productx
+            ]
+
+            # Return results
+            return JsonResponse({"products": products})
+
+        except Exception as e:
+            # Return a meaningful error response
+            return JsonResponse(
+                {"error": f"An error occurred while searching for '{phrase}'."},
+                status=500
+            )
