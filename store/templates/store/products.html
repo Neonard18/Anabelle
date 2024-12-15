@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        {% load static %}
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link rel="icon" type="image/x-icon" href="{% static 'store/ico.svg' %}">
-          <title>Home</title>
-          <script src="https://kit.fontawesome.com/c1d73264ae.js" crossorigin="anonymous"></script>
-          <link rel="stylesheet" href="{% static 'store/home.css' %}">
-          <link rel="stylesheet" href="{% static 'store/hamburger.css' %}">
-          <link rel="preconnect" href="https://fonts.googleapis.com">
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-          <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-      </head>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'store/ico.svg' %}">
+    <title>Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="{% static 'store/products.css' %}">
+    <link rel="stylesheet" href="{% static 'store/hamburger.css' %}">
+    <script src="https://kit.fontawesome.com/c1d73264ae.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+</head>
 <body>
     <header>
         <div class="header-container">
@@ -55,6 +56,48 @@
         </div>
 
     </header>
+    <div class="overlay"></div>
+    <nav class="sidebar" id="sidebar">
+        <div class="cart-heading">
+            <span>Your cart</span>
+            <div id="xmark" onclick="closeCartSideBar()"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+        <div class="cart-heading desc">
+            <span>PRODUCT</span>
+            <span>TOTAL</span>
+        </div>
+
+        <hr class="cart-hr">
+        <div id="cart-tray">
+        </div>
+
+        <hr>
+    </nav>
+
+    <nav class="slider">
+        <div class="area">
+            <div class="area-child area-1">
+                <i class="fa-solid fa-house"></i>
+                <a href="{% url 'index' %}">Home</a>
+            </div>
+            <div class="area-child area-2">
+                <i class="fa-solid fa-tag"></i>
+                Products
+            </div>
+            <div class="area-child area-3" onclick="closeSlider(); viewCart();">
+                <i class="fa-solid fa-bag-shopping"></i>
+                Cart
+            </div>
+            <div class="area-child area-5">
+                <i class="fa-solid fa-phone"></i>
+                Contact us
+            </div>
+            <div class="area-child area-6">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <a href="{% url 'logout' %}">Log Out</a>
+            </div>
+        </div>
+    </nav>
 
     <div class="overlay"></div>
     <nav class="sidebar" id="sidebar">
@@ -99,88 +142,12 @@
         </div>
     </nav>
 
-    <main class="main-content">
-        <div class="hero-section">
-            <div class="hero-wrapper">
-                <div class="hero-heading">
-                    <p><span>Step into </span></p>
-                    <p><span>Style with Top Brands</span></p>
-                    <p><span>in Anabelle!</span> </p>
-                </div>
-            </div>
-           
-        </div>
-        <div class="mid-section">
-            <div class="parent">
-                <div class="description">
-                    <p >
-                        Discover a wide selection of premium shoes from the most popular brands, all in one place. Whether you’re looking for the latest trends, comfort, or performance, we’ve got something for everyone.  
-                    </p>
-                </div>
-                <div class="sample">
-                    <div class="collection_list first-item">
-                    <p class="first-item-text">Adidas</p>
-                    </div>
-                    <div class="collection_list second-item">
-                    <p class="second-item-text">Vans</p>
-                    </div>
-                    <div class="collection_list third-item">
-                    <p class="last-item-text">Nike</p>
-                    </div>
-                </div>
-            </div>
-           
-        </div>
-        <div class="third-section">
-            <div class="ts-description">
-                <div>
-                    <p style="font-size: 35px; font-weight: 700; letter-spacing: 3px;">Style Better, Drip More</p>
-                    <p style="font-size: 24px;">Get ready to be exquiste and elegant.</p>
-                    <a href="http://">Shop Now</a>
-                </div>
-            </div>
-            <img class="logo-img" src="{% static 'store/ico.svg' %}" alt="..">
-            <div class="third-sect-container">
-                <div class="third-sect x-image"></div>
-                <div class="third-sect xx-image"></div>
-            </div>
-        </div>
-        <div class="featured-products">
-            <h2>Featured Products</h2>
-            <div class="fp-grid">
-                {% if fproducts %}
-                    <button class="fp-left-button" onclick="scrollToLeft()" type="button"><i class="fa-solid fa-angle-left"></i></button>
-                {% for product in fproducts %}
-                    <div class="fp-grid-child grid-child{{ forloop.counter }}">
-                        <img class="fp-child-img grid-child-image-{{ forloop.counter }}" src="{{ product.productimage.url }}" alt="">
-                        <div class="product-info">
-                                <input class="fp-quickbtn" id="quickview" type="submit" value="Quick View"  onclick="addToCart('{{ product.id|escapejs }}')">
-                           <p>{{ product.productname }}</p>
-                           <p>${{ product.price }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-                    <button class="fp-right-button" onclick="scrollToRight()" type="button"><i class="fa-solid fa-angle-right"></i></button>
-                {% else %}
-                <div class="null-featured">
-                    <p>No Featured Products Yet</p>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="banner" >
-            <div class="banner-image left-banner"></div>
-            <div class="overflow">
-                <p>Stunning Shoe Collection </p>
-                <span>
-                    Step into comfort and style with our exclusive Shoe Collection.
-                       <br> Whether you're dressing up for a special occasion or keeping it casual,
-                            <br>    our shoes provide the perfect blend of fashion and comfort, 
-                                <br>    making them your go-to choice for any outing.</span>
-            </div>
-            <div class="banner-image right-banner"></div>
-        </div>
+    <main>
+        {% for product in product_list %}
+            {{ product }}
+        {% endfor %}
     </main>
+
     <footer>
         <div class="footer-wrapper">
             <div class="block-item1 f-item" id="block-item1">
@@ -258,11 +225,10 @@
             </div>
         </div>
     </footer>
-    
+
     <script src="{% static 'store/cartLogic.js' %}"></script>
     <script src="{% static 'store/search.js' %}"></script>
     <script src="{% static 'store/slider.js' %}"></script>
-    <script src="{% static 'store/scroll.js' %}"></script>
     <script src="{% static 'store/toggle.js' %}"></script>
 </body>
 </html>

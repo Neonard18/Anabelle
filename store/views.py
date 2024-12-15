@@ -1,6 +1,7 @@
 from django.forms import ValidationError
 from django.urls import reverse
 from django.http import JsonResponse
+from django.views.generic import ListView
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -163,3 +164,8 @@ def searchItem(request, phrase):
                 {"error": f"An error occurred while searching for '{phrase}'."},
                 status=500
             )
+
+
+class ProductList(ListView):
+    model = Product
+    template_name = "store/products.html"
