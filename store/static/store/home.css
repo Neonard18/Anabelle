@@ -235,11 +235,11 @@ header{
     width: 100%;
     height: 100%;
     background-color: rgba(18, 18, 18, 0.653);
-    z-index: 200;
+    z-index: 700;
 }
 
 .sidebar {
-    z-index: 300;
+    z-index: 700;
     position: fixed;
     width: 0;
     background-color: #fff;
@@ -418,6 +418,11 @@ input[type="number"] {
     margin: auto;
 }
 
+area > a {
+    text-decoration: none;
+    color: black;
+}
+
 .area-child {
     display: flex;
     align-items: center;
@@ -430,6 +435,7 @@ input[type="number"] {
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     padding-left: 5px;
     font-weight: 300;
+    text-decoration: none;
     font-size: 18px;
 }
 
@@ -444,9 +450,7 @@ input[type="number"] {
     margin-top: 2px;
 }
 
-.area-6 > a,
-.area-1 > a {
-    text-decoration: none;
+.area-child {
     color: black;
     font-weight: 300;
     font-size: 18px;
@@ -875,7 +879,7 @@ input[type="number"] {
 .product-info p {
     white-space: pre-line;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 300;
     letter-spacing: 1px;
     text-align: center;
 }
@@ -893,7 +897,7 @@ input[type="number"] {
     text-align: left;
     padding-top: 4px;
     padding-bottom: 4px;
-    font-weight: 400;
+    font-weight: 300;
     cursor: pointer;
     border: 1px solid black;
     position: relative;

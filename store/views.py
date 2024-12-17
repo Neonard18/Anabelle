@@ -169,3 +169,4 @@ def searchItem(request, phrase):
 class ProductList(ListView):
     model = Product
     template_name = "store/products.html"
+    paginate_by = 4

@@ -1,104 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        {% load static %}
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link rel="icon" type="image/x-icon" href="{% static 'store/ico.svg' %}">
-          <title>Home</title>
-          <script src="https://kit.fontawesome.com/c1d73264ae.js" crossorigin="anonymous"></script>
-          <link rel="stylesheet" href="{% static 'store/home.css' %}">
-          <link rel="stylesheet" href="{% static 'store/hamburger.css' %}">
-          <link rel="preconnect" href="https://fonts.googleapis.com">
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-          <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-      </head>
-<body>
-    <header>
-        <div class="header-container">
-            <div class="h-search-cart">
-                <div class="search-container">
-                    <i class="fa-solid fa-magnifying-glass" onclick="showSearch()"></i>
+{% extends 'store/base.html' %}
 
-                    <div class="searching">
-                        <input class="search-input" type="text" onchange="search()" placeholder="Search">
-                        <div class="input-xmark" onclick="closeSearch()">
-                            <i class="fa-sharp-duotone fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="search-result">
-                        </div>
-                    </div>
-                </div>
-                <div onclick="viewCart()"><i class="fa-solid fa-bag-shopping"></i></div>
-            </div>
-            <div class="h-logo-nav">
-                <div>
-                    <p class="logo-text">Anabelle</p>    
-                    <img class="logo-img" src="{% static 'store/ico.svg' %}" alt="..">
-                </div>
-    
-                    <!-- nav links -->
-                    <div class="nav-links">
-                        <a href="{% url 'index' %}">Home</a>
-                        <a href="{% url 'products' %}">Products</a>
-                        <a href="#">Contact Us</a>
-                        <a href="{% url 'logout' %}">Log Out</a>
-                    </div>      
- 
-                <label class="burger" for="burger">
-                    <input type="checkbox" id="burger" onchange="openSlider()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </label>
-            </div>
-        </div>
+{% load static %}
 
-    </header>
-
-    <div class="overlay"></div>
-    <nav class="sidebar" id="sidebar">
-        <div class="cart-heading">
-            <span>Your cart</span>
-            <div id="xmark" onclick="closeCartSideBar()"><i class="fa-solid fa-xmark"></i></div>
-        </div>
-        <div class="cart-heading desc">
-            <span>PRODUCT</span>
-            <span>TOTAL</span>
-        </div>
-
-        <hr class="cart-hr">
-        <div id="cart-tray">
-        </div>
-
-        <hr>
-    </nav>
-
-    <nav class="slider">
-        <div class="area">
-            <div class="area-child area-1">
-                <i class="fa-solid fa-house"></i>
-                <a href="{% url 'index' %}">Home</a>
-            </div>
-            <div class="area-child area-2">
-                <i class="fa-solid fa-tag"></i>
-                <a href="{% url 'products' %}">Products</a>
-            </div>
-            <div class="area-child area-3" onclick="closeSlider(); viewCart();">
-                <i class="fa-solid fa-bag-shopping"></i>
-                Cart
-            </div>
-            <div class="area-child area-5">
-                <i class="fa-solid fa-phone"></i>
-                Contact us
-            </div>
-            <div class="area-child area-6">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <a href="{% url 'logout' %}">Log Out</a>
-            </div>
-        </div>
-    </nav>
-
+{% block title %}Home - Anabelle{% endblock %}
+{% block content %}
     <main class="main-content">
         <div class="hero-section">
             <div class="hero-wrapper">
@@ -108,7 +13,7 @@
                     <p><span>in Anabelle!</span> </p>
                 </div>
             </div>
-           
+        
         </div>
         <div class="mid-section">
             <div class="parent">
@@ -129,7 +34,7 @@
                     </div>
                 </div>
             </div>
-           
+        
         </div>
         <div class="third-section">
             <div class="ts-description">
@@ -155,8 +60,8 @@
                         <img class="fp-child-img grid-child-image-{{ forloop.counter }}" src="{{ product.productimage.url }}" alt="">
                         <div class="product-info">
                                 <input class="fp-quickbtn" id="quickview" type="submit" value="Quick View"  onclick="addToCart('{{ product.id|escapejs }}')">
-                           <p>{{ product.productname }}</p>
-                           <p>${{ product.price }}</p>
+                        <p>{{ product.productname }}</p>
+                        <p>${{ product.price }}</p>
                         </div>
                     </div>
                 {% endfor %}
@@ -174,95 +79,13 @@
                 <p>Stunning Shoe Collection </p>
                 <span>
                     Step into comfort and style with our exclusive Shoe Collection.
-                       <br> Whether you're dressing up for a special occasion or keeping it casual,
+                    <br> Whether you're dressing up for a special occasion or keeping it casual,
                             <br>    our shoes provide the perfect blend of fashion and comfort, 
                                 <br>    making them your go-to choice for any outing.</span>
             </div>
             <div class="banner-image right-banner"></div>
         </div>
-    </main>
-    <footer>
-        <div class="footer-wrapper">
-            <div class="block-item1 f-item" id="block-item1">
-                <p class="footer-nav-title">Contact Us  
-                    <span class="checkbox-container">
-                        <input type="checkbox" class="toggle-checkbox" id="toggle-1" />
-                        <label for="toggle-1" class="toggle-label"></label>
-                    </span>
-                </p>
-                <div>
-                    <p><span>Address:</span> No 7 Abba Street Omagba, Phase 2. Anambra State.</p>
-                    <p><span>Mobile:</span> 09028346795</p>
-                    <p><span>Email: </span>ngwuemmanuel84@gmail.com</p>
-                </div>
-                
-            </div>
-            <div class="block-item2 f-item">
-                <p class="footer-nav-title">
-                    Quick Links
+        <script src="{% static 'store/scroll.js' %}"></script> 
+    </main>    
+    {% endblock %}
 
-                    <span class="checkbox-container">
-                        <input type="checkbox" class="toggle-checkbox" id="toggle-2"/>
-                        <label for="toggle-2" class="toggle-label"></label>
-                    </span>
-                </p>
-                <div>
-                    <p>Home</p>
-                    <p>Search</p>
-                    <p>Contact Us</p>
-                    
-                </div>
-            </div>
-            <div class="block-item3 f-item">
-                <p class="footer-nav-title">
-                    Our Catalog
-
-                    <span class="checkbox-container">
-                        <input type="checkbox" class="toggle-checkbox" id="toggle-3"/>
-                        <label for="toggle-3" class="toggle-label"></label>
-                    </span>
-                </p>
-                <div>
-                    <p>Shop All</p>
-                    <p>Featured Products</p>
-                    <p>About Us</p>
-                </div>
-            </div>
-            <div class="block-item4 f-item">
-                <p class="footer-nav-title">
-                    Follow Us
-
-                    <span class="checkbox-container">
-                        <input type="checkbox" class="toggle-checkbox" id="toggle-4"/>
-                        <label for="toggle-4" class="toggle-label"></label>
-                    </span>
-                </p>
-                <div>
-                    <span>
-                        <i class="fa-brands fa-instagram"></i>
-                            Instagram
-                    </span>
-                    <span>
-                        <i class="fa-brands fa-twitter"></i>
-                        Twitter
-                    </span>
-                    <span>
-                        <i class="fa-brands fa-whatsapp"></i>
-                        Whatsapp
-                    </span>
-                    <span>
-                        <i class="fa-brands fa-facebook"></i>
-                        Facebook
-                    </span>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-    <script src="{% static 'store/cartLogic.js' %}"></script>
-    <script src="{% static 'store/search.js' %}"></script>
-    <script src="{% static 'store/slider.js' %}"></script>
-    <script src="{% static 'store/scroll.js' %}"></script>
-    <script src="{% static 'store/toggle.js' %}"></script>
-</body>
-</html>
