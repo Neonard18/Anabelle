@@ -22,11 +22,14 @@ const parentWidth = parent.clientWidth
 const deskIncrement = parentWidth * ( 1 / 3)
 const mobileIncrement = parentWidth * (2.6 / 3)
 const mobileView = window.matchMedia("(max-width: 500px)");
+let subtotal = document.querySelector(".cart-subtotal")
+let spanSubtotal = document.querySelector("#subtotal")
 
 async function viewCart() {   
     const cartTray = document.getElementById("cart-tray")
     cartTray.innerHTML=""
     overlay.style.display = "block"
+
 
     if(window.innerWidth <= 500){
         sidebar.style.width = `${mobileIncrement}px`
@@ -70,6 +73,15 @@ async function viewCart() {
 
         cartTray.appendChild(cartItem)
     });
+
+    if (data && data.items.length <= 2) {
+        subtotal.style.position = "absolute"
+        subtotal.style.bottom = "0"
+    }else{
+        subtotal.style.position = "static"
+    }
+
+    spanSubtotal.innerHTML = `$${data.cart_total} USD`
 }
 
 async function deleteCartItem(productid) {

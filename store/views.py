@@ -1,7 +1,7 @@
 from django.forms import ValidationError
 from django.urls import reverse
 from django.http import JsonResponse
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -9,6 +9,7 @@ from .models import Product, Category, Cart, CartItem
 from django.contrib.auth import login, logout
 from .forms import RegisterForm, LoginForm
 from django.db.models import F
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def register(request):
@@ -126,7 +127,8 @@ def view_cart(request):
             "id": item.id,
             "product_id": item.product.id,
             "name": item.product.productname,
-            "size" : item.product.size,
+            "size" : [size.size 
+                      for size in item.product.sizes.all()],
             "price" : item.product.price,
             "quantity" : item.quantity,
             "image" : item.product.productimage.url,
@@ -166,7 +168,32 @@ def searchItem(request, phrase):
             )
 
 
-class ProductList(ListView):
+class ProductList(LoginRequiredMixin, ListView):
     model = Product
     template_name = "store/products.html"
     paginate_by = 4
+
+class ProductDetail(DetailView):
+    model = Product
+    template_name='store/productdetail.html'
+
+
+def quickview(request,pk):
+    product = get_object_or_404(Product, pk=pk)
+
+    size = [
+        {
+            "size": size.size,
+        } 
+        for size in product.sizes.all()
+        ]
+    
+    product = [
+        {
+            "id": product.id,
+            "name": product.productname,
+            "img": product.productimage.url,
+            "price": product.price,
+        }
+    ]
+    return JsonResponse({"product":product,"size":size})

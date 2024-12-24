@@ -85,7 +85,6 @@ class Product(models.Model):
     id = models.AutoField(primary_key=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="categories")
     # color = models.CharField(max_length = 150)
-    size = models.IntegerField()
     productname = models.CharField(max_length = 150, blank=False, unique=True)
     price = models.FloatField()
     productimage = models.ImageField(upload_to=upload_path, height_field=None, width_field=None, max_length=100)
@@ -100,6 +99,18 @@ class Product(models.Model):
 
     def __str__(self):
         return self.productname
+    
+
+class Size(models.Model):
+    size = models.IntegerField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="sizes")
+
+    def __str__(self):
+        return str(self.size)
+
+    class Meta:
+        verbose_name = "Size"
+        verbose_name_plural = "Sizes"
     
 class Cart(models.Model):
     created_at = models.DateField(auto_now_add=True)

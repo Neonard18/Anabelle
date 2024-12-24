@@ -41,7 +41,7 @@
                 <div>
                     <p style="font-size: 35px; font-weight: 700; letter-spacing: 3px;">Style Better, Drip More</p>
                     <p style="font-size: 24px;">Get ready to be exquiste and elegant.</p>
-                    <a href="http://">Shop Now</a>
+                    <a href="{% url 'products' %}">Shop Now</a>
                 </div>
             </div>
             <img class="logo-img" src="{% static 'store/ico.svg' %}" alt="..">
@@ -59,9 +59,9 @@
                     <div class="fp-grid-child grid-child{{ forloop.counter }}">
                         <img class="fp-child-img grid-child-image-{{ forloop.counter }}" src="{{ product.productimage.url }}" alt="">
                         <div class="product-info">
-                                <input class="fp-quickbtn" id="quickview" type="submit" value="Quick View"  onclick="addToCart('{{ product.id|escapejs }}')">
+                                <input class="fp-quickbtn" id="quickview" type="submit" value="Quick View"  onclick="quickView('{{ product.id|escapejs }}')">
                         <p>{{ product.productname }}</p>
-                        <p>${{ product.price }}</p>
+                        <p>${{ product.price }} USD</p>
                         </div>
                     </div>
                 {% endfor %}

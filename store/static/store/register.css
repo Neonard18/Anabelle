@@ -217,6 +217,7 @@ form input {
 .password-container, 
 .password-container2 {
     position: relative;
+    height: fit-content;
 }
 
 .password-container input,
@@ -251,8 +252,38 @@ input[type="submit"] {
     bottom: 0;
     right: 3.4%;
   }
+
+  .error-container {
+    --color: #a5a5b0;
+    --size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: var(--size);
+    user-select: none;
+    fill: var(--color);
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 35%;
+    right: 3.4%;
+  }
+
+  @media (max-width: 500px){
+    .container {
+        right: 7%;
+    }
+    .error-container {
+        right: 7%;
+    }
+  }
   
   .container .eye {
+    position: absolute;
+    animation: keyframes-fill .5s;
+  }
+  .error-container .eye {
     position: absolute;
     animation: keyframes-fill .5s;
   }
@@ -263,17 +294,47 @@ input[type="submit"] {
     display: none;
   }
   
+  .error-container .eye-slash {
+    position: absolute;
+    animation: keyframes-fill .5s;
+    display: none;
+  }
+  
+  .container .eye-slash {
+    position: absolute;
+    animation: keyframes-fill .5s;
+    display: none;
+  }
+  .error-container .eye-slash {
+    position: absolute;
+    animation: keyframes-fill .5s;
+    display: none;
+  }
+  
   /* ------ On check event ------ */
   .container input:checked ~ .eye {
+    display: none;
+  }
+  .error-container input:checked ~ .eye {
     display: none;
   }
   
   .container input:checked ~ .eye-slash {
     display: block;
   }
+  .error-container input:checked ~ .eye-slash {
+    display: block;
+  }
   
   /* ------ Hide the default checkbox ------ */
   .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .error-container input {
     position: absolute;
     opacity: 0;
     cursor: pointer;

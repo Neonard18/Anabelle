@@ -48,13 +48,19 @@
                         <a href="#">Contact Us</a>
                         <a href="{% url 'logout' %}">Log Out</a>
                     </div>      
+
+                    <div class="burger-search">
+                        <div class="🔍">
+                            <i class="fa-solid fa-magnifying-glass" onclick="showSearch()"></i>
+                        </div>
+                        <label class="burger" for="burger">
+                            <input type="checkbox" id="burger" onchange="openSlider()">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </label>
+                    </div>
  
-                <label class="burger" for="burger">
-                    <input type="checkbox" id="burger" onchange="openSlider()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </label>
             </div>
         </div>
 
@@ -70,11 +76,17 @@
             <span>TOTAL</span>
         </div>
 
-        <hr class="cart-hr">
         <div id="cart-tray">
         </div>
+        
+        <div class="cart-subtotal">
+            <div class="subtotal">
+                <span>Subtotal</span>
+                <span id="subtotal"></span>
+            </div>
 
-        <hr>
+            <button class="checkout" onclick="checkout()">Checkout</button>
+        </div>
     </nav>
 
     <nav class="slider">
@@ -150,6 +162,9 @@
             </div>
         </div>
     </nav>
+
+    <section class="quick-layout">
+    </section>
 
         {% block content %}
         {% endblock %}
@@ -238,5 +253,6 @@
     <script src="{% static 'store/search.js' %}"></script>
     <script src="{% static 'store/slider.js' %}"></script>
     <script src="{% static 'store/toggle.js' %}"></script>
+    <script src="{% static 'store/quickView.js' %}"></script>
 </body>
 </html>
