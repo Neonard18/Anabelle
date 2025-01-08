@@ -24,6 +24,9 @@ const mobileIncrement = parentWidth * (2.6 / 3)
 const mobileView = window.matchMedia("(max-width: 500px)");
 let subtotal = document.querySelector(".cart-subtotal")
 let spanSubtotal = document.querySelector("#subtotal")
+let quantityPlus = document.querySelector(".quantity-plus")
+
+
 
 async function viewCart() {   
     const cartTray = document.getElementById("cart-tray")
@@ -49,9 +52,37 @@ async function viewCart() {
     let data = await resp.json();
     console.log(data);
 
-    data && data.items.forEach(item => {
-        const cartTray = document.getElementById("cart-tray")
-        const cartItem = document.createElement("div")
+    if(data.items < 1) {
+        document.querySelector(".desc").style.display = "none"
+        subtotal.style.display = "none"
+        cartTray.style.alignItems = "center"
+        cartTray.style.justifyContent = "center"
+        cartTray.style.textAlign = "center"
+        cartTray.style.fontWeight = "400"
+        cartTray.style.height = "65%"
+        cartTray.style.fontSize = "28px"
+        let cartItem = document.createElement("div")
+        cartItem.className = "product-cartempty"
+    
+        cartItem.innerHTML = `
+            Cart is empty, View products to add items.
+        `
+
+        cartTray.innerHTML = "Cart is empty, View products to add items."
+    }else {
+        document.querySelector(".desc").style.display = "flex"
+        subtotal.style.display = "flex"
+        cartTray.style.alignItems = "stretch"
+        cartTray.style.justifyContent = "flex-start"
+        cartTray.style.textAlign = "left"
+        cartTray.style.fontWeight = "500"
+        cartTray.style.height = "auto"
+        cartTray.style.fontSize = "16px"
+    }
+
+    data.items.length >= 1 && data.items.forEach(item => {
+        let cartTray = document.getElementById("cart-tray")
+        let cartItem = document.createElement("div")
         cartItem.className = "product-cartitem"
         cartItem.innerHTML = `
             <div id="cart-productimg">
@@ -63,9 +94,9 @@ async function viewCart() {
             </div>
             <div id="product-quantity">
                 <div class="quantity-container"> 
-                    <span class="quantity-minus">-</span>
-                    <input class="quantity-input" type="number" value=${item.quantity}>
-                    <span class="quantity-plus">+</span>
+                    <span class="quantity-minus" onClick="decrementQuantity(${item.product_id},${item.id})">-</span>
+                    <input class="quantity-input" type="number" value=${item.quantity} step="1" data-id="${item.id}">
+                    <span class="quantity-plus" onClick="incrementQuantity(${item.product_id},${item.id})">+</span>
                 </div>
                 <i class="fa-sharp-duotone fa-solid fa-trash" id="trash-tray${item.product_id}" onClick="deleteCartItem(${item.product_id})"></i>
             </div>
@@ -83,6 +114,59 @@ async function viewCart() {
 
     spanSubtotal.innerHTML = `$${data.cart_total} USD`
 }
+
+
+async function incrementQuantity(productID, itemID, element){
+    let resp = await fetch(`/store/cart/${productID}/increment/`,
+        {
+            method: "POST",
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken' : csrftoken,
+            },
+
+            mode: "same-origin",
+        }
+    )
+
+    if (element == undefined) {
+        element = document.querySelector(`.quantity-input[data-id="${itemID}"]`)
+        element.stepUp()
+    
+        let data = await resp.json()
+        console.log(data)
+        spanSubtotal.innerHTML = `$${data.total} USD`
+    }else{
+        element.stepUp()
+        
+    }
+}
+
+async function decrementQuantity(productID, itemID, element){
+    let resp = await fetch(`/store/cart/${productID}/decrement/`,
+        {
+            method: "POST",
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken' : csrftoken,
+            },
+
+            mode: "same-origin",
+        }
+    )
+
+    if (element == undefined) {
+        element = document.querySelector(`.quantity-input[data-id="${itemID}"]`)
+        element.stepDown()
+    
+        let data = await resp.json()
+        console.log(data)
+        spanSubtotal.innerHTML = `$${data.total} USD`
+    }else{
+        element.stepDown()
+    }
+}
+
 
 async function deleteCartItem(productid) {
     const resp = await fetch(`/store/cart/del/${productid}/`,{

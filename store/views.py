@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Product, Category, Cart, CartItem
 from django.contrib.auth import login, logout
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, ContactForm
 from django.db.models import F
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -153,6 +153,7 @@ def searchItem(request, phrase):
                     "id": product.id,
                     "name": product.productname,
                     "image": product.productimage.url if product.productimage else None,
+                    "price": product.price,
                 }
                 for product in productx
             ]
@@ -177,6 +178,14 @@ class ProductDetail(DetailView):
     model = Product
     template_name='store/productdetail.html'
 
+    def get_context_data(self, **kwargs):
+        product = self.get_object()
+        quantity = sum(item.quantity for item in product.cartitem_set.all())
+        context = super().get_context_data(**kwargs)
+        context['quantity'] = quantity
+        return context
+
+
 
 def quickview(request,pk):
     product = get_object_or_404(Product, pk=pk)
@@ -197,3 +206,36 @@ def quickview(request,pk):
         }
     ]
     return JsonResponse({"product":product,"size":size})
+
+
+def increment_cartquantity(request, product_id):
+    product = Product.objects.get(id=product_id)
+    cart, created = Cart.objects.get_or_create(user = request.user)
+    cartItem, created = CartItem.objects.get_or_create(cart=cart,product=product)
+    cartItem.quantity += 1
+    cartItem.save()
+
+    cart_total = sum(item.total_price() for item in cart.items.all())
+    return JsonResponse({"quantity": cartItem.quantity, "total": cart_total})
+
+def decrement_cartquantity(request, product_id):
+    product = Product.objects.get(id=product_id)
+    cart = Cart.objects.get(user = request.user)
+    cartItem = CartItem.objects.get(cart=cart,product=product)
+    cartItem.quantity -= 1
+    cartItem.save()
+
+    cart_total = sum(item.total_price() for item in cart.items.all())
+    return JsonResponse({"quantity": cartItem.quantity, "total": cart_total})
+
+def contact(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('index'))
+    else:
+        form = ContactForm()
+
+    return render(request,'store/contact.html',{"form": form})

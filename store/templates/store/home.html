@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Home - Anabelle{% endblock %}
+{% block title %}Home | Anabelle{% endblock %}
 {% block content %}
     <main class="main-content">
         <div class="hero-section">
@@ -51,19 +51,26 @@
             </div>
         </div>
         <div class="featured-products">
-            <h2>Featured Products</h2>
+            <div class="fp-header">
+                <img src="{% static 'store/ico.svg' %}" alt="..">
+                <h2>Featured Products</h2>
+                <img src="{% static 'store/ico.svg' %}" alt="..">
+            </div>
+            
             <div class="fp-grid">
                 {% if fproducts %}
                     <button class="fp-left-button" onclick="scrollToLeft()" type="button"><i class="fa-solid fa-angle-left"></i></button>
                 {% for product in fproducts %}
-                    <div class="fp-grid-child grid-child{{ forloop.counter }}">
-                        <img class="fp-child-img grid-child-image-{{ forloop.counter }}" src="{{ product.productimage.url }}" alt="">
-                        <div class="product-info">
-                                <input class="fp-quickbtn" id="quickview" type="submit" value="Quick View"  onclick="quickView('{{ product.id|escapejs }}')">
-                        <p>{{ product.productname }}</p>
-                        <p>${{ product.price }} USD</p>
+                    <a id="product-link" href="{% url 'product-detail' product.id %}">
+                        <div class="fp-grid-child grid-child{{ forloop.counter }}">
+                            <img class="fp-child-img grid-child-image-{{ forloop.counter }}" src="{{ product.productimage.url }}" alt="">
+                            <div class="product-info">
+                                    <input class="fp-quickbtn" id="quickview" type="submit" value="Quick View"  onclick="quickView(event,'{{ product.id|escapejs }}')">
+                            <p>{{ product.productname }}</p>
+                            <p>${{ product.price }} USD</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 {% endfor %}
                     <button class="fp-right-button" onclick="scrollToRight()" type="button"><i class="fa-solid fa-angle-right"></i></button>
                 {% else %}

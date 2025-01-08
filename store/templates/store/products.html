@@ -14,14 +14,16 @@
                 </p>
                 <div class="p-grid">
                     {% for product in page_obj %}
-                        <div class="p-view">
-                            <img class="p-img" src="{{ product.productimage.url }}" alt="product-image">
-                            <div class="p-info">
-                                <input class="p-quickbtn" id="p-quickview" type="submit" value="Quick View" onclick="quickView('{{ product.id|escapejs }}')" >
-                                <p>{{ product.productname }}</p>
-                                <p>${{ product.price }} USD</p>
-                            </div>
-                        </div>                
+                        <a style="text-decoration: none; color: black;" href="{% url 'product-detail' product.id %}">
+                            <div class="p-view">
+                                <img class="p-img" src="{{ product.productimage.url }}" alt="product-image">
+                                <div class="p-info">
+                                    <input class="p-quickbtn" id="p-quickview" type="submit" value="Quick View" onclick="quickView(event,'{{ product.id|escapejs }}')" >
+                                    <p>{{ product.productname }}</p>
+                                    <p>${{ product.price }} USD</p>
+                                </div>
+                            </div>                
+                        </a>
                     {% endfor %}
                 </div>
             </div>

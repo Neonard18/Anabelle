@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.core.validators import MaxValueValidator
 
 # Create your models here.
 class MyUserManager(BaseUserManager):
@@ -128,5 +129,9 @@ class CartItem(models.Model):
     def __str__(self) -> str:
         return f'item: {self.product.productname} {self.id}'
     
-    
+class Contact(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    number = models.IntegerField(validators=[MaxValueValidator(11)])
+    comment = models.CharField(max_length=400, blank=True)
     

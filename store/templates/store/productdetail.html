@@ -1,0 +1,86 @@
+{% extends 'store/base.html' %}
+
+{% block title %}
+    Detail | Anabelle
+{% endblock %}
+
+{% block link %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'store/detail.css' %}">
+{% endblock %}
+
+
+
+{% block content %}
+    <main>
+        <div class="detail-layout">
+            <div class="detail-image" style="background-image: url('{{ product.productimage.url }}');">
+                <!-- <img class="detail-img" src="{{ product.productimage.url }}" alt="product-image"> -->
+            </div>
+            <div class="detail-desc">
+                <div class="detail-pname">
+                    {{ product.productname }}     
+                </div>
+
+                <div class="detail-price">
+                    ${{ product.price }} USD
+                </div>
+
+                <div class="product-size">
+                    <label id="size-label" for="size">Size</label>
+                    <select name="size" id="size">
+                        {% for sizes in product.sizes.all %}
+                            <option value="{{ sizes.size }}">{{ sizes.size }}</option>
+                        {% endfor %}
+                    <select>
+                </div>
+
+                <div class="product-quantity">
+                    <label id="quantity-label" for="quantity-container">Quantity</label>
+                    <div class="quantity-container" id="quantity-container"> 
+                        <span class="quantity-minus" onclick="decrementQuantity('{{ product.id }}', '{{ product.id }}', document.querySelector('.qq-input'))">-</span>
+                        <input class="qq-input quantity-input" data-id="{{ product.id }}" type="number" value="{{ quantity|default:'1' }}" step="1">
+                        <span class="quantity-plus" onclick="incrementQuantity('{{ product.id }}', '{{ product.id }}', document.querySelector('.qq-input'))">+</span>
+                    </div>
+                </div>
+
+                <div class="detail-buttons">
+                    <div class="detail-addtocart" onclick="xQuickView(); addToCart('{{ product.id|escapejs }}');">
+                        Add to Cart
+                    </div>
+    
+                    <div class="detail-buy-now" >
+                        Buy Now
+                    </div>
+                </div>
+
+            </div>      
+        </div>
+        <div class="detail-description">
+            <div>
+                <h2>Description</h2>
+                <i class="fa-solid fa-caret-down" onclick="toggleCaret()"></i>
+                <script>
+                    function toggleCaret() {
+                        let caretDown = document.querySelector("h2 + i");
+                        let description = document.querySelector(".product-description");
+                        description.classList.toggle('show-description');
+                        
+                        if (caretDown.classList.contains('fa-caret-down')) {
+                            caretDown.classList.replace('fa-caret-down', 'fa-caret-up');
+                        } 
+                        else if (caretDown.classList.contains('fa-caret-up')) {
+                            caretDown.classList.replace('fa-caret-up', 'fa-caret-down');
+                        }
+
+
+                    }
+                </script>
+            </div>
+            <div class="product-description">
+                <span>{{ product.productname }}</span>
+                {{ product.description }}
+            </div>
+        </div>
+    </main>
+{% endblock %}

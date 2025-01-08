@@ -11,6 +11,7 @@
     </title>
     <script src="https://kit.fontawesome.com/c1d73264ae.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'store/home.css' %}">
+    <link rel="stylesheet" href="{% static 'store/mini-search.css' %}">
     <link rel="stylesheet" href="{% static 'store/hamburger.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,12 +46,12 @@
                     <div class="nav-links">
                         <a href="{% url 'index' %}">Home</a>
                         <a href="{% url 'products' %}">Products</a>
-                        <a href="#">Contact Us</a>
+                        <a href="{% url 'contact' %}">Contact Us</a>
                         <a href="{% url 'logout' %}">Log Out</a>
                     </div>      
 
                     <div class="burger-search">
-                        <div class="🔍">
+                        <div class="🔍" onclick="minSearch()">
                             <i class="fa-solid fa-magnifying-glass" onclick="showSearch()"></i>
                         </div>
                         <label class="burger" for="burger">
@@ -107,10 +108,12 @@
                 <i class="fa-solid fa-bag-shopping"></i>
                 Cart
             </div>
-            <div class="area-child area-5">
-                <i class="fa-solid fa-phone"></i>
-                Contact us
-            </div>
+            <a href="{% url 'contact' %}" style="text-decoration: none;">
+                <div class="area-child area-5">
+                    <i class="fa-solid fa-phone"></i>
+                    Contact us
+                </div>
+            </a>
             <a href="{% url 'logout' %}" style="text-decoration: none;">
                 <div class="area-child area-6">
                     <i class="fa-solid fa-right-from-bracket"></i>
@@ -137,6 +140,16 @@
 
         <hr>
     </nav>
+
+    <div class="mini-search-container">
+        <div class="inner-search">
+            <div class="xmark" onclick="closeMinSearch()">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <input class="mini-search" type="text" placeholder="Search" onchange="lookUp()">
+            <div class="searched-result"></div>
+        </div>
+    </div>
 
     <nav class="slider">
         <div class="area">
@@ -249,6 +262,7 @@
 
     {% block script %}
     {% endblock %}
+    <script src="{% static 'store/miniSearch.js' %}"></script>
     <script src="{% static 'store/cartLogic.js' %}"></script>
     <script src="{% static 'store/search.js' %}"></script>
     <script src="{% static 'store/slider.js' %}"></script>

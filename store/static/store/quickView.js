@@ -1,6 +1,9 @@
 let quickLayout = document.querySelector(".quick-layout")
 
-async function quickView(pk) {
+async function quickView(event,pk) {
+    event.stopPropagation();
+    event.preventDefault();
+
     let response = await fetch(`/store/quickview/${pk}/`, {
         method: 'GET',
         headers: {
@@ -49,12 +52,12 @@ async function quickView(pk) {
                 <label id="quantity-label" for="quantity-container">Quantity</label>
                 <div class="quantity-container" id="quantity-container"> 
                     <span class="quantity-minus">-</span>
-                    <input class="quantity-input" type="number" value="${1}" >
+                    <input class="qq-input quantity-input" type="number" value="${1}" >
                     <span class="quantity-plus">+</span>
                 </div>
             </div>
 
-            <div class="quick-addtocart" onclick="addToCart(${data.product[0].id})">
+            <div class="quick-addtocart" onclick="xQuickView(); addToCart(${data.product[0].id});">
                 Add to Cart
             </div>
 
@@ -62,7 +65,7 @@ async function quickView(pk) {
                 Buy Now
             </div>
 
-            <div ><a>View Product</a> &rarr;</div>
+            <div class="view-product" onclick="xQuickView()"><a style="color: black; text-decoration: none;" href="/store/product-detail/${data.product[0].id}/">View Product</a> &rarr;</div>
     `
 
     qXmark.innerHTML = `

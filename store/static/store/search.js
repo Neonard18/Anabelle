@@ -56,19 +56,20 @@ async function search() {
     
     if (!productsLength == 0) {
         data.products.forEach(product => {
-            let innerResult = document.createElement("div") 
+            let innerResult = document.createElement("a")
+            innerResult.href = `/store/product-detail/${product.id}/`
 
             searchElement.style.display = "flex"
             innerResult.className = "inner-result"        
             innerResult.innerHTML = `
-                <div class="result-image">
-                    <img style="width: 100%; height: 100%; object-fit: fill; border-radius: 5px;" src="${product.image}" alt="product-image">
-                </div>
-                <div class="result-productname">
-                    <div>
-                    <span class="product-name">${product.name}</span>
+                    <div class="result-image">
+                        <img style="width: 100%; height: 100%; object-fit: fill; border-radius: 5px;" src="${product.image}" alt="product-image">
                     </div>
-                </div>
+                    <div class="result-productname">
+                        <div>
+                        <span class="product-name">${product.name}</span>
+                        </div>
+                    </div>
             `
 
             searchResult.appendChild(innerResult)

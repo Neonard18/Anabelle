@@ -1,0 +1,50 @@
+{% extends 'store/base.html' %}
+
+
+{% block title %}Contact | Anabelle{% endblock %}
+
+{% block link %} 
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'store/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        <h2>Contact Us</h2>
+        <span>We will get back to you soonest</span>
+
+        <form class="contact-form" action="{% url 'contact' %}" method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="name-email">
+                {{ form.name.errors }}
+                {{ form.email.errors }}
+                <div>
+                    <label for="{{ form.name.id_for_label }}">Name* </label>
+                    <input id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}" maxlength="{{ form.name.field.max_length }}" type="text" value="{{ form.name.value|default:'' }}" required>
+                </div>
+                
+                <div>
+                    <label for="{{ form.email.id_for_label }}">Email* </label>
+                    <input id="{{ form.email.id_for_label }}" name="{{ form.email.html_name }}" maxlength="{{ form.email.field.max_length }}" type="text" value="{{ form.email.value|default:'' }}" required>
+                </div>
+            </div>
+
+            <div>
+                {{ form.number.errors }}
+                <label for="{{ form.number.id_for_label }}">Number* </label>
+                <input id="{{ form.number.id_for_label }}" name="{{ form.number.html_name }}" type="number"value="{{ form.number.value|default:'' }}" required>
+            </div>
+
+            <div>
+                {{ form.comment.errors }}
+                <label for="{{ form.comment.id_for_label }}">Comment* </label>
+                <textarea name="{{ form.comment.html_name }}" id="{{ form.comment.id_for_label }}" rows="8" aria-expanded="false">
+                    {{ form.comment.value|default:'' }}
+                </textarea>
+            </div>
+            
+            <input type="submit" value="Send">
+        </form>
+    </div>
+{% endblock %}

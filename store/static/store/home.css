@@ -12,6 +12,10 @@ body{
     overflow-y: scroll;
 }
 
+a:focus {
+    outline: none;
+}
+
 header{
     background-color: rgba(0, 0, 0, 0.854); 
     width: 100%;
@@ -86,6 +90,8 @@ header{
     gap: 5px;
     border: 1px solid rgba(0, 0, 0, 0.18);
     box-shadow: rgba(0, 0, 0, 0.2) 1.95px 1.95px 2.6px;
+    color: black;
+    text-decoration: none;
 }
 
 .input-xmark {
@@ -106,6 +112,7 @@ header{
 .input-xmark:hover .fa-xmark {
     scale: 1.06;
 }
+
 
 .result-image {
     flex: 1;
@@ -341,13 +348,14 @@ header{
     grid-column-gap: 0;
     transition: all 1s ease-in-out 1s;
     border: none;
-    box-shadow: 1.3px 0 1.3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 
 #cart-productimg {
     width: 100%;
     height: 100%;
     grid-row: 1/3;
+    box-shadow: rgba(0, 0, 0, 0.1) 1.95px 1.95px 2.6px;
 }
 
 #product-desc {
@@ -356,9 +364,19 @@ header{
     grid-template-columns: 1fr 23%;
 }
 
+.product-cartempty{
+    height: 100% !important;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+}
+
 .cart-productname {
     text-align: center;
-    font-weight: 200;
+    font-weight: 300;
+    color: rgb(18, 18, 18);
 }
 
 .cart-productprice {
@@ -370,8 +388,8 @@ header{
     text-align: center;
     height: 50px;
     width: 130px;
-    
 }
+
 .quantity-input::-webkit-inner-spin-button,
 .quantity-input::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -381,6 +399,7 @@ header{
 /* Remove increment and decrement buttons in Firefox */
 input[type="number"] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 #product-quantity {
@@ -431,6 +450,21 @@ input[type="number"] {
     right: 0;
     height: 85px;
     border-top: 1px solid gray;
+}
+
+@media (max-width: 500px) {
+    .cart-subtotal{
+        height: 110px;
+    }
+
+    .subtotal > span:first-child{
+        font-size: 22px !important;
+    }
+
+    .checkout {
+        height: 50px !important;
+        font-size: 18px !important;
+    }
 }
 
 .subtotal {
@@ -601,6 +635,12 @@ area > a {
     text-align: left;
 }
 
+.qq-input {
+    width: 40%;
+    text-align: center;
+    height: 50px;
+}
+
 #size-label,
 #quantity-label {
     display: block;
@@ -610,7 +650,7 @@ area > a {
 }
 
 #size{
-    width: 55%;
+    width: 40%;
     height: 50px;
     outline: none;
     border-radius: 4px;
@@ -655,6 +695,7 @@ area > a {
     background-color: rgb(90, 90, 90);
 }
 
+
 @media(max-width: 500px){
     .quick-layout {
         flex-direction: column;
@@ -683,6 +724,11 @@ area > a {
     .quick-pname{
         font-size: 28px;
         width: 100%;
+    }
+
+    #size,
+    .qq-input {
+        width: 60%;
     }
 
 }
@@ -982,9 +1028,25 @@ area > a {
     width: 92%;
     margin-left: calc(100% - 96%);
     margin-right: calc(100% - 96%);
-    height: 600px;
+    height: 650px;
     position: relative;
 }
+
+.fp-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.fp-header img {
+    width: 35px;
+    height: 50%;
+    margin-bottom: 10px;
+}
+
+
 
 .featured-products h2 {
     width: 80%;
@@ -1056,6 +1118,7 @@ area > a {
 
 .fp-grid-child {
     min-width: 280px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -1119,6 +1182,12 @@ area > a {
     margin-top: 5px;
 }
 
+#product-link{
+    text-decoration: none;
+    color: black;
+    height: 100%;
+}
+
 .fp-quickbtn {
     margin: auto 4px;
     opacity: 0;
@@ -1132,6 +1201,7 @@ area > a {
     cursor: pointer;
     border: 1px solid black;
     position: relative;
+    z-index: 100;
     background-color: rgba(202, 202, 202, 0.233);
     transition: background-color .8s ease-in-out,
                 opacity 0.7s ease-in-out ;

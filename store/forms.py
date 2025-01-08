@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django import forms
-from .models import User
+from .models import User, Contact
 
 class LoginForm(forms.Form):
     email = forms.EmailField(required=True,
@@ -68,3 +68,9 @@ class RegisterForm(forms.ModelForm):
         if commit: 
             user.save()
         return user
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = "__all__"
