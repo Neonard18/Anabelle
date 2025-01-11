@@ -14,7 +14,6 @@ async function quickView(event,pk) {
     })
 
     let data = await response.json()
-    console.log(data)
     quickLayout.style.opacity = 1
     quickLayout.style.pointerEvents = "auto"
     overlay.style.display = "block"

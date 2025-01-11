@@ -50,7 +50,6 @@ async function viewCart() {
     })
 
     let data = await resp.json();
-    console.log(data);
 
     if(data.items < 1) {
         document.querySelector(".desc").style.display = "none"
@@ -134,7 +133,7 @@ async function incrementQuantity(productID, itemID, element){
         element.stepUp()
     
         let data = await resp.json()
-        console.log(data)
+        
         spanSubtotal.innerHTML = `$${data.total} USD`
     }else{
         element.stepUp()
@@ -160,7 +159,7 @@ async function decrementQuantity(productID, itemID, element){
         element.stepDown()
     
         let data = await resp.json()
-        console.log(data)
+        
         spanSubtotal.innerHTML = `$${data.total} USD`
     }else{
         element.stepDown()
@@ -179,7 +178,6 @@ async function deleteCartItem(productid) {
     })
 
     const data = await resp.json();
-    console.log(data);
     viewCart()
 }
 

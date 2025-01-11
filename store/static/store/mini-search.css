@@ -44,6 +44,7 @@ body{
     border: 1.65px solid #101010;
     border-radius: 5px;
     box-shadow: inset 0 0 1px rgba(198, 198, 198, 0.5);
+    padding-left: 4px;
 }
 
 .mini-search:focus {
@@ -92,4 +93,12 @@ body{
     display: flex;
     flex-direction: column;
     margin: auto 2px;
+}
+
+.invalid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 98%;
 }

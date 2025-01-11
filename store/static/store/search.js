@@ -47,7 +47,6 @@ async function search() {
         bottomValue = innerResultHeight * productsLength
         let ttlGap = (productsLength - 1) * gap
         bottomValue = bottomValue + padding + ttlGap + 5
-        console.log(bottomValue);        
         searchResult.style.bottom = -bottomValue + "px"
     }else {
         searchResult.style.bottom = -135 + "px"

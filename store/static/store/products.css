@@ -115,6 +115,10 @@
     border-radius: 14px;
 }
 
+.lt{
+    color: black;   
+}
+
 .first-page,
 .last-page{
     color: black;

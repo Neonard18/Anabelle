@@ -5,7 +5,7 @@ let searchGlass = document.querySelector(".🔍")
 
 function closeMinSearch (){
     overlay.style.display = "none"
-    minSearch.innerHTML = ""
+    miniSearch.value = ""
     miniSearchContainer.style.width = 0
     miniSearchContainer.style.pointerEvents = "none"
     miniSearchContainer.style.opacity = "0"
@@ -29,7 +29,6 @@ async function minSearch() {
 
 async function lookUp(){
     miniSearchResult.innerHTML = ""
-    minSearch.innerHTML = ""
     let phrase = miniSearch.value
     let resp = await fetch(`/store/search/${phrase}/`, {
         method: 'POST',
@@ -41,7 +40,17 @@ async function lookUp(){
     })
 
     let data = await resp.json()
-    console.log(data)
+
+    if(data.products.length === 0){
+        let miniResult = document.createElement("div")
+        miniResult.className = "mini-result"
+        miniResult.innerHTML = `
+            <div class="invalid">
+                <h3>No results found</h3>
+            </div>
+        `
+        miniSearchResult.appendChild(miniResult)
+    }
     data.products.forEach(product => {
         let miniResult = document.createElement("a")
         miniResult.href = `/store/product-detail/${product.id}/`

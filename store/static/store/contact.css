@@ -58,6 +58,18 @@
     width: 100%;
 }
 
+#id_number{
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+#id_number::-webkit-inner-spin-button,
+#id_number::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
 .form-container input:not([type="submit"]) {
     height: 45px;
     width: 100%;
@@ -84,4 +96,17 @@ textarea {
     .contact-form {
         width: 95%;
     }
+
+    .contact-form input{
+        font-size: 14px;
+    }
+}
+
+.errorlist{
+    color: red;
+    font-size: 15px;
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }

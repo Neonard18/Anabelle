@@ -1,5 +1,4 @@
 const burger = document.querySelector('#burger')
-console.log(burger);
 const slider = document.querySelector('.slider')
 
 function openSlider (){

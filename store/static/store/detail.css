@@ -119,6 +119,13 @@
     transition: all 0.5s;
 }
 
+.product-description > span {
+    display: block;
+    margin: 5px 0;
+    font-size: 20px;
+    font-weight: 300;
+}
+
 .show-description {
     height: 300px;
     overflow-y: auto;
